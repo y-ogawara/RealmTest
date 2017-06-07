@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Logボタンをおした時
-    public void showlog(View v){
+    public void showLog(View v){
         //検索用のクエリ作成
         RealmQuery<TestDB> query = realm.where(TestDB.class);
 
