@@ -13,37 +13,33 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView text ;
     Realm realm;
     EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        text = (TextView) findViewById(R.id.textView);
+        // xmlとの関連付け
         editText = (EditText)findViewById(R.id.editText);
+
         //realmの初期化
-        realm.init(this);
         realm = Realm.getDefaultInstance();
-
-
-
     }
+    //Addボタンを押したときの処理
     public void add (View v){
         //トランザクション開始
         realm.beginTransaction();
-        //dbの準備
-        TestDB model;
-        model = realm.createObject(TestDB.class);
+        //インスタンスを生成
+        TestDB model = realm.createObject(TestDB.class);
 
-        //書き込みたいデータを作成
+        //書き込みたいデータをインスタンスに入れる
         model.setId(1);
         model.setName(editText.getText().toString());
 
-        //トランザクション終了
+        //トランザクション終了 (データを書き込む)
         realm.commitTransaction();
 
-/***
+/*
         // データを挿入する
         realm.executeTransaction(new Realm.Transaction(){
             @Override
@@ -53,22 +49,22 @@ public class MainActivity extends AppCompatActivity {
                 u.setId(25);
             }
         });
- ***/
+ */
 
 
     }
-    public void viewUpdate(View v){
+
+    //Logボタンをおした時
+    public void showlog(View v){
         //検索用のクエリ作成
         RealmQuery<TestDB> query = realm.where(TestDB.class);
 
 //        query.equalTo("name", "test");
 //        query.or().equalTo("id", 2);
 //        query.or().equalTo("id", 3);
-        //インスタンス生成し、その中にすべてのデータを入れる 配列で
-        RealmResults<TestDB> results = query.findAll();
 
-        //0番目を出力
-        text.setText(results.get(0).getName());
+        //インスタンス生成し、その中にすべてのデータを入れる 今回なら全てのデータ
+        RealmResults<TestDB> results = query.findAll();
 
         //すべての値をログに出力
         for (TestDB test:results){

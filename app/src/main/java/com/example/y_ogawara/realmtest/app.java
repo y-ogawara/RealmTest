@@ -3,16 +3,15 @@ package com.example.y_ogawara.realmtest;
 import android.app.Application;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 /**
- * Created by y-ogawara on 17/06/02.
+ * Created by yuusuke on 2017/06/07.
  */
 
 public class app extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        Realm.init(this);
     }
 }
